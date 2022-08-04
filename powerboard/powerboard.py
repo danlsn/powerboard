@@ -2,6 +2,7 @@ import configparser
 import amberelectric
 from pprint import pprint
 from amberelectric.api import amber_api
+from datetime import date
 
 # Safely Import Credentials Using 'configparser'
 CONFIG_FILE = "../config.ini"
@@ -29,3 +30,17 @@ try:
     u2_site = amber_u2.get_sites()[0]
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
+
+# Fetch Amber Electric Prices
+site_id = u1_site.id
+try:
+    start_date = date(2021, 1, 1)
+    end_date = date(2021, 12, 31)
+    price_history = amber_u1.get_prices(
+        site_id, start_date=start_date, end_date=end_date
+    )
+except amberelectric.ApiException as e:
+    print("Exception: %s\n" % e)
+
+pprint(price_history)
+pass
