@@ -36,20 +36,25 @@ try:
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
 
-# Fetch Amber Electric Prices
-price_history = None
-site_id = u1_site.id
-try:
-    start_date = date(2021, 8, 4)
-    end_date = date(2022, 8, 4)
-    price_history = amber_u1.get_prices(
-        site_id, start_date=start_date, end_date=end_date
-    )
-except amberelectric.ApiException as e:
-    print("Exception: %s\n" % e)
 
-# Pickle Amber Electric Price History Response Object
-with open(
-    f"{DATA_OUT_DIR}/amber/price_history_{start_date}_{end_date}.pickle", "wb"
-) as f:
-    pickle.dump(price_history, f, pickle.HIGHEST_PROTOCOL)
+# Fetch Amber Electric Prices
+def fetch_price_history(api_client, site_id, start_date: date, end_date: date):
+    try:
+        amber_price_history = api_client.get_prices(
+            site_id, start_date=start_date, end_date=end_date
+        )
+    except amberelectric.ApiException as e:
+        print("Exception: %s\n" % e)
+
+    # Pickle Amber Electric Price History Response Object
+    with open(
+            f"{DATA_OUT_DIR}/amber/price_history_{start_date}_{end_date}.pickle", "wb"
+    ) as f:
+        pickle.dump(amber_price_history, f, pickle.HIGHEST_PROTOCOL)
+
+    return amber_price_history
+
+
+price_history = fetch_price_history(amber_u1, u1_site.id, date(2021, 1, 1), date(2021, 12, 31))
+
+
