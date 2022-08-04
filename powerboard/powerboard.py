@@ -22,6 +22,7 @@ amber_u1 = amber_api.AmberApi.create(amber_u1_config)
 amber_u2 = amber_api.AmberApi.create(amber_u2_config)
 
 # Fetch Amber Electric Sites
+u1_site, u2_site2 = None, None
 try:
     u1_site = amber_u1.get_sites()[0]
 except amberelectric.ApiException as e:
@@ -32,6 +33,7 @@ except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
 
 # Fetch Amber Electric Prices
+price_history = None
 site_id = u1_site.id
 try:
     start_date = date(2021, 8, 4)
