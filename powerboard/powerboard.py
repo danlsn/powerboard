@@ -19,3 +19,15 @@ amber_u2_config = amberelectric.Configuration(
 # Create Amber Electric API Instances
 amber_u1 = amber_api.AmberApi.create(amber_u1_config)
 amber_u2 = amber_api.AmberApi.create(amber_u2_config)
+
+# Fetch Amber Electric Sites
+try:
+    u1_sites = amber_u1.get_sites()
+except amberelectric.ApiException as e:
+    print("Exception: %s\n" % e)
+try:
+    u2_sites = amber_u2.get_sites()
+except amberelectric.ApiException as e:
+    print("Exception: %s\n" % e)
+
+
