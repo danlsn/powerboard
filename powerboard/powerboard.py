@@ -1,9 +1,10 @@
 import configparser
 import pickle
-import amberelectric
-from pprint import pprint
-from amberelectric.api import amber_api
 from datetime import date
+
+import amberelectric
+from amberelectric.api import amber_api, AmberApi
+from amberelectric.model.site import Site
 
 # Define Constants
 DATA_OUT_DIR = "../data"
@@ -22,19 +23,17 @@ amber_u2_config = amberelectric.Configuration(
 )
 
 # Create Amber Electric API Instances
-amber_u1 = amber_api.AmberApi.create(amber_u1_config)
-amber_u2 = amber_api.AmberApi.create(amber_u2_config)
+amber_u1: AmberApi = amber_api.AmberApi.create(amber_u1_config)
+amber_u2: AmberApi = amber_api.AmberApi.create(amber_u2_config)
+
 
 # Fetch Amber Electric Sites
-u1_site, u2_site2 = None, None
-try:
-    u1_site = amber_u1.get_sites()[0]
-except amberelectric.ApiException as e:
-    print("Exception: %s\n" % e)
-try:
-    u2_site = amber_u2.get_sites()[0]
-except amberelectric.ApiException as e:
-    print("Exception: %s\n" % e)
+def fetch_site(api_client: AmberApi) -> Site:
+    try:
+        sites = api_client.get_sites()
+        return sites[0]
+    except amberelectric.ApiException as e:
+        print("Exception: %s\n" % e)
 
 
 # Fetch Amber Electric Prices
@@ -48,13 +47,16 @@ def fetch_price_history(api_client, site_id, start_date: date, end_date: date):
 
     # Pickle Amber Electric Price History Response Object
     with open(
-            f"{DATA_OUT_DIR}/amber/price_history_{start_date}_{end_date}.pickle", "wb"
+        f"{DATA_OUT_DIR}/amber/price_history_{start_date}_{end_date}.pickle",
+        "wb",
     ) as f:
         pickle.dump(amber_price_history, f, pickle.HIGHEST_PROTOCOL)
 
     return amber_price_history
 
 
-price_history = fetch_price_history(amber_u1, u1_site.id, date(2021, 1, 1), date(2021, 12, 31))
+u1_site: Site = fetch_site(amber_u1)
+u2_site: Site = fetch_site(amber_u2)
 
-
+# price_history = fetch_price_history(amber_u1, u1_site.id, date(2021, 1, 1), date(2021, 12, 31))
+pass
