@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "powerboard"
 version = "0.1.0"
-description = ""
+description = "Data visualisation project using Tableau to monitor electricity usage relative to internal temperatures from IoT thermometers."
 authors = ["danlsn <danlsn@github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+amberelectric = "^1.0.4"
 
 [tool.poetry.dev-dependencies]
 
