@@ -44,6 +44,7 @@ def fetch_price_history(api_client, site_id, start_date: date, end_date: date):
         )
     except amberelectric.ApiException as e:
         print("Exception: %s\n" % e)
+        raise Exception
 
     # Pickle Amber Electric Price History Response Object
     with open(
@@ -55,8 +56,29 @@ def fetch_price_history(api_client, site_id, start_date: date, end_date: date):
     return amber_price_history
 
 
-u1_site: Site = fetch_site(amber_u1)
-u2_site: Site = fetch_site(amber_u2)
+# Fetch Amber Electric Power Usage
+def fetch_power_usage(api_client: AmberApi, start_date: date, end_date: date):
+    site_id = fetch_site(api_client).id
+    try:
+        power_usage = api_client.get_usage(site_id, start_date, end_date)
+    except amberelectric.ApiException as e:
+        print("Exception: %s\n" % e)
+        raise Exception
+
+    # Pickle Amber Electric Power Usage Response Object
+    with open(
+            f"{DATA_OUT_DIR}/amber/power_usage_{start_date}_{end_date}.pickle",
+            "wb",
+    ) as f:
+        pickle.dump(power_usage, f, pickle.HIGHEST_PROTOCOL)
+
+    return power_usage
+
+
+# u1_site: Site = fetch_site(amber_u1)
+# u2_site: Site = fetch_site(amber_u2)
 
 # price_history = fetch_price_history(amber_u1, u1_site.id, date(2021, 1, 1), date(2021, 12, 31))
+
+fetch_power_usage(amber_u1, date(2022, 1, 1), date(2022, 1, 31))
 pass
