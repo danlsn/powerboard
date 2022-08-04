@@ -34,8 +34,8 @@ except amberelectric.ApiException as e:
 # Fetch Amber Electric Prices
 site_id = u1_site.id
 try:
-    start_date = date(2021, 1, 1)
-    end_date = date(2021, 12, 31)
+    start_date = date(2021, 8, 4)
+    end_date = date(2022, 8, 4)
     price_history = amber_u1.get_prices(
         site_id, start_date=start_date, end_date=end_date
     )
