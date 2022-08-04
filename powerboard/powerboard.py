@@ -1,8 +1,12 @@
 import configparser
+import pickle
 import amberelectric
 from pprint import pprint
 from amberelectric.api import amber_api
 from datetime import date
+
+# Define Constants
+DATA_OUT_DIR = "../data"
 
 # Safely Import Credentials Using 'configparser'
 CONFIG_FILE = "../config.ini"
@@ -44,5 +48,8 @@ try:
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
 
-pprint(price_history)
-pass
+# Pickle Amber Electric Price History Response Object
+with open(
+    f"{DATA_OUT_DIR}/amber/price_history_{start_date}_{end_date}.pickle", "wb"
+) as f:
+    pickle.dump(price_history, f, pickle.HIGHEST_PROTOCOL)
