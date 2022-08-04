@@ -5,7 +5,8 @@ to internal temperatures from IoT thermometers.
 
 # Roadmap
 - [x]  Create GitHub Repo for Project
-- [ ]  Create IntelliJ Project
+- [x]  Create IntelliJ Project
+- [ ]  Create powerboard Python Project
 - [ ]  Extract Amber Electric Data Using API (2021)
 - [ ]  Extract Temperature Sensor Data from Govee (2021)
 - [ ]  Extract Weather Data for Melbourne (Bulk Download from OpenWeather API)
