@@ -1,7 +1,7 @@
 import configparser
 import amberelectric
+import pprint
 from amberelectric.api import amber_api
-
 
 # Safely Import Credentials Using 'configparser'
 CONFIG_FILE = "../config.ini"
@@ -29,5 +29,3 @@ try:
     u2_sites = amber_u2.get_sites()
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
-
-
