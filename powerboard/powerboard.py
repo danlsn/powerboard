@@ -1,6 +1,6 @@
 import configparser
 import amberelectric
-import pprint
+from pprint import pprint
 from amberelectric.api import amber_api
 
 # Safely Import Credentials Using 'configparser'
@@ -22,10 +22,10 @@ amber_u2 = amber_api.AmberApi.create(amber_u2_config)
 
 # Fetch Amber Electric Sites
 try:
-    u1_sites = amber_u1.get_sites()
+    u1_site = amber_u1.get_sites()[0]
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
 try:
-    u2_sites = amber_u2.get_sites()
+    u2_site = amber_u2.get_sites()[0]
 except amberelectric.ApiException as e:
     print("Exception: %s\n" % e)
