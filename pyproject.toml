@@ -7,6 +7,24 @@ authors = ["danlsn <danlsn@github.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 amberelectric = "^1.0.4"
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+requests-cache = "^1.1.0"
+pendulum = "^2.1.2"
+pandas = {extras = ["feather", "parquet"], version = "^2.1.0"}
+tqdm = "^4.66.1"
+case-converter = "^1.1.0"
+duckdb = "^0.8.1"
+pyyaml = "^6.0.1"
+pyarrow = "^13.0.0"
+dbt-core = "^1.6.2"
+dbt-duckdb = "^1.6.0"
+dbt-generator = "^0.3.2"
+dbt-postgres = "^1.6.2"
+mysql-connector-python = "^8.1.0"
+sqlalchemy = "^2.0.20"
+icecream = "^2.1.3"
+dbt-snowflake = "^1.6.2"
 
 [tool.poetry.dev-dependencies]
 
