@@ -1,17 +1,17 @@
 with source as (
 
-    select * from {{ source('amber', 'credits') }}
+    select * from {{ source('main','load_amber__credits') }}
 
 ),
 
 renamed as (
 
     select
-        nmi,
+        nmi::int as nmi,
         account_number,
         effective_from,
         effective_to,
-        date_diff('day', effective_from, effective_to) + 1 as days_in_period,
+        datediff('day', effective_from, effective_to) + 1 as days_in_period,
         date_applied,
         invoice_applied,
         type,

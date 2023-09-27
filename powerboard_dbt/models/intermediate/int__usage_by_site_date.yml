@@ -1,0 +1,24 @@
+version: 2
+
+models:
+- name: int__usage_by_site_date
+  description: ""
+  tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: int__usage_by_site_date_unique
+          combination_of_columns:
+          - site_id
+          - usage_date
+  columns:
+  - name: site_id
+    description: ""
+  - name: nmi
+    description: ""
+  - name: usage_date
+    description: ""
+  - name: kwh
+    description: ""
+  - name: cost
+    description: ""
+  - name: per_kwh
+    description: ""

@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: base_main__usage
+    description: ""
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: base_main__usage_unique
+          combination_of_columns:
+            - NEM_TIME
+            - SITE_ID
+    columns:
+      - name: usage_date
+        description: ""
+
+      - name: nem_time_start
+        description: ""
+
+      - name: nem_time
+        description: ""
+
+      - name: start_time_utc
+        description: ""
+
+      - name: end_time_utc
+        description: ""
+
+      - name: site_id
+        description: ""
+
+      - name: channel_type
+        description: ""
+
+      - name: channel_identifier
+        description: ""
+
+      - name: type
+        description: ""
+
+      - name: duration
+        description: ""
+
+      - name: descriptor
+        description: ""
+
+      - name: spike_status
+        description: ""
+
+      - name: quality
+        description: ""
+
+      - name: kwh
+        description: ""
+
+      - name: per_kwh
+        description: ""
+
+      - name: cost
+        description: ""
+
+      - name: renewables
+        description: ""
+
+      - name: spot_per_kwh
+        description: ""

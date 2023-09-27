@@ -1,5 +1,3 @@
-{{config(enabled=False)}}
-
 {% set sql_statement %}
     select
         min_date,
@@ -8,8 +6,8 @@
 {% endset %}
 
 {%- set date_range = dbt_utils.get_query_results_as_dict(sql_statement) -%}
-{%- set min_date = date_range["min_date"][0] -%}
-{%- set max_date = date_range["max_date"][0] -%}
+{%- set min_date = date_range["MIN_DATE"][0] -%}
+{%- set max_date = date_range["MAX_DATE"][0] -%}
 {%- set date_range = dbt_date.get_base_dates(start_date=min_date, end_date=max_date) -%}
 
 with

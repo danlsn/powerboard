@@ -1,0 +1,11 @@
+version: 2
+
+models:
+- name: int__usage_periods
+  description: ""
+  columns:
+  - name: date_minute
+    description: ""
+    tests:
+      - unique
+      - not_null

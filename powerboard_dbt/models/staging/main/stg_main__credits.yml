@@ -1,0 +1,30 @@
+version: 2
+
+models:
+- name: stg_main__credits
+  description: ""
+  tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - NMI
+          - DATE_APPLIED
+          - TYPE
+  columns:
+  - name: nmi
+    description: ""
+  - name: account_number
+    description: ""
+  - name: effective_from
+    description: ""
+  - name: effective_to
+    description: ""
+  - name: date_applied
+    description: ""
+  - name: invoice_applied
+    description: ""
+  - name: type
+    description: ""
+  - name: description
+    description: ""
+  - name: amount_cents
+    description: ""

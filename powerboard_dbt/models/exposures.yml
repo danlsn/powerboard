@@ -1,0 +1,16 @@
+version: 2
+
+
+exposures:
+  - name: powerboard_v4_on_snowflake
+    label: PowerBoard v4 Snowflake Dashboard
+    type: dashboard
+    maturity: medium
+    url: https://app.snowflake.com/gdrbwqv/mip/#/powerboard-v4-d46qDdxPH
+    depends_on:
+      - ref('int__usage_adjusted')
+      - ref('int__usage_fee_credit_adjusted')
+
+    owner:
+      name: Dan Lawson
+      email: hello@example.com

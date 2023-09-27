@@ -1,6 +1,6 @@
 with source as (
 
-    select * from {{ source('amber', 'subscription_fees') }}
+    select * from {{ source('main','load_amber__subscription_fees') }}
 
 ),
 

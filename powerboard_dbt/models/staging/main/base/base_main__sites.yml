@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: base_main__sites
+    description: ""
+    columns:
+      - name: id
+        description: ""
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: ""
+
+      - name: supply_address
+        description: ""
+
+      - name: account_number
+        description: ""
+
+      - name: nmi
+        description: ""
+
+      - name: active_from
+        description: ""

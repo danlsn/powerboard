@@ -1,6 +1,6 @@
 with source as (
 
-    select * from {{ source('amber', 'sites') }}
+    select * from {{ source('main','load_amber__sites') }}
 
 ),
 

@@ -1,5 +1,0 @@
-powerboard_dbt:
-  outputs:
-    dev:
-      type: duckdb
-      path: ../powerboard/powerboard.db

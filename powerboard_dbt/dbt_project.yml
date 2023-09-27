@@ -13,6 +13,14 @@ profile: 'powerboard_dbt'
 vars:
   'dbt_date:time_zone': 'Australia/Melbourne' # Required for package calogica/dbt_date
   exclude_packages: ['all'] # Exclude packages from dbt-project-evaluator
+  dbt_project_evaluator:
+    model_types: [ 'staging', 'intermediate', 'marts', 'other', 'util' ]
+    util_folder_name: 'util'
+    util_prefixes: [ 'util_' ]
+    # set your chained views threshold to 8 instead of 4
+    chained_views_threshold: 8
+
+on-run-end: "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues(format='table') }}"
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -28,10 +36,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-dispatch:
-  - macro_namespace: dbt
-    search_order: ['dbt_project_evaluator', 'dbt']
-
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -40,10 +44,16 @@ dispatch:
 # files using the `{{ config(...) }}` macro.
 models:
   powerboard_dbt:
+    +materialized: table
     staging:
-      +materialized: view
+      +materialized: table
       +schema: staging
       +tags: ['staging']
   dbt_project_evaluator:
-    +schema: dbt_project_evaluator
     +tags: ['meta']
+    +schema: project_evaluator
+
+seeds:
+  dbt_project_evaluator:
+    dbt_project_evaluator_exceptions:
+      +enabled: false

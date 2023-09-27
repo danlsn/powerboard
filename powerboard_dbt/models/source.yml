@@ -1,111 +1,77 @@
 version: 2
 
 sources:
-  - name: amber
-    meta:
-      external_location: "C:\\Users\\DanielLawson\\IdeaProjects\\powerboard\\data\\amber_{name}.csv"
+  - name: main
+    database: miptest_db
+    loader: manual
+    schema: dbt_dlawson
     tables:
-      - name: credits
-        columns:
-          - name: nmi
-            data_type: BIGINT
-          - name: account_number
-            data_type: CHARACTER VARYING(256)
-          - name: effective_from
-            data_type: DATE
-          - name: effective_to
-            data_type: DATE
-          - name: date_applied
-            data_type: DATE
-          - name: invoice_applied
-            data_type: CHARACTER VARYING(256)
-          - name: type
-            data_type: CHARACTER VARYING(256)
-          - name: description
-            data_type: CHARACTER VARYING(256)
-          - name: amount_cents
-            data_type: BIGINT
-      - name: sites
+      - name: load_amber__credits
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - nmi
+                - effective_from
+                - effective_to
+                - type
+                - amount_cents
+      - name: load_amber__sites
         columns:
           - name: id
-            data_type: CHARACTER VARYING(256)
-          - name: name
-            data_type: CHARACTER VARYING(256)
-          - name: supply_address
-            data_type: CHARACTER VARYING(256)
-          - name: account_number
-            data_type: CHARACTER VARYING(256)
-          - name: nmi
-            data_type: BIGINT
-          - name: active_from
-            data_type: DATE
-      - name: subscription_fees
-        columns:
-          - name: fee_type
-            data_type: CHARACTER VARYING(256)
-          - name: monthly_fee
-            data_type: BIGINT
-          - name: effective_from
-            data_type: DATE
-          - name: effective_to
-            data_type: DATE
-      - name: usage
-        meta:
-          external_location: "read_csv_auto('C:\\Users\\DanielLawson\\IdeaProjects\\powerboard\\data\\amber-extract\\daily\\*.csv')"
-        columns:
-          - name: date
-            data_type: DATE
-          - name: nem_time_start
-            data_type: TIMESTAMP
-          - name: nem_time
-            data_type: TIMESTAMP
-          - name: start_time
-            data_type: TIMESTAMPTZ
-          - name: end_time
-            data_type: TIMESTAMPTZ
-          - name: site_id
-            data_type: CHARACTER VARYING(256)
-          - name: channel_type
-            data_type: CHARACTER VARYING(256)
-          - name: channel_identifier
-            data_type: CHARACTER VARYING(256)
-          - name: type
-            data_type: CHARACTER VARYING(256)
-          - name: duration
-            data_type: CHARACTER VARYING(256)
-          - name: descriptor
-            data_type: CHARACTER VARYING(256)
-          - name: spike_status
-            data_type: CHARACTER VARYING(256)
-          - name: quality
-            data_type: CHARACTER VARYING(256)
-          - name: kwh
-            data_type: DOUBLE
-          - name: per_kwh
-            data_type: DOUBLE
-          - name: cost
-            data_type: DOUBLE
-          - name: renewables
-            data_type: DOUBLE
-          - name: spot_per_kwh
-            data_type: DOUBLE
-  - name: vdo
-    meta:
-        external_location: "C:\\Users\\DanielLawson\\IdeaProjects\\powerboard\\data\\{name}.csv"
-    tables:
-    - name: vdo
-      columns:
-        - name: distribution_zone
-          data_type: CHARACTER VARYING(256)
-        - name: supply_charge_cents_e4
-          data_type: BIGINT
-        - name: usage_charge_structure
-          data_type: CHARACTER VARYING(256)
-        - name: usage_charge_kwh_e4
-          data_type: BIGINT
-        - name: controlled_load_kwh_e4
-          data_type: BIGINT
-        - name: effective_from
-          data_type: DATE
-        - name: effective_to
-          data_type: DATE
+            tests:
+              - unique
+              - not_null
+      - name: load_amber__subscription_fees
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - fee_type
+                - monthly_fee
+                - effective_from
+                - effective_to
+                - discount
+      - name: load_amber__usage
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - site_id
+                - start_time
+        freshness:
+          warn_after:
+            count: 3
+            period: day
+          error_after:
+            count: 14
+            period: day
+        loaded_at_field: "nem_time_start"
+      - name: load__vdo
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - distribution_zone
+                - effective_from
+                - effective_to
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 30
+            period: day
+        loaded_at_field: "effective_to::timestamp"
+      - name: load_opennem__temperature
+        tests:
+            - dbt_utils.unique_combination_of_columns:
+                name: load_opennem__temperature_unique
+                combination_of_columns:
+                    - timestamp
+                    - id
+        freshness:
+          warn_after:
+            count: 7
+            period: day
+          error_after:
+            count: 14
+            period: day
+        loaded_at_field: "timestamp"
+

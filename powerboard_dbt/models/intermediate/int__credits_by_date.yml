@@ -1,0 +1,33 @@
+version: 2
+
+models:
+- name: int__credits_by_date
+  description: ""
+  tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - NMI
+          - DATE_DAY
+          - INVOICE_APPLIED
+          - DESCRIPTION
+  columns:
+  - name: date_day
+    description: ""
+  - name: nmi
+    description: ""
+  - name: account_number
+    description: ""
+  - name: effective_from
+    description: ""
+  - name: effective_to
+    description: ""
+  - name: date_applied
+    description: ""
+  - name: invoice_applied
+    description: ""
+  - name: type
+    description: ""
+  - name: description
+    description: ""
+  - name: amount_cents
+    description: ""

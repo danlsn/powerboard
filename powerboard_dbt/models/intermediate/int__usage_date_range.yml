@@ -1,0 +1,16 @@
+version: 2
+
+models:
+- name: int__usage_date_range
+  description: ""
+  columns:
+  - name: min_date
+    description: ""
+    tests:
+      - unique
+      - not_null
+  - name: max_date
+    description: ""
+    tests:
+      - unique
+      - not_null

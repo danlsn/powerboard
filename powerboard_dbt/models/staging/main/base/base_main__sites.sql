@@ -1,6 +1,6 @@
 with source as (
 
-    select * from {{ source('amber', 'sites') }}
+    select * from {{ source('main','load_amber__sites') }}
 
 ),
 
@@ -11,7 +11,7 @@ renamed as (
         name,
         supply_address,
         account_number,
-        nmi,
+        nmi::int as nmi,
         active_from
 
     from source

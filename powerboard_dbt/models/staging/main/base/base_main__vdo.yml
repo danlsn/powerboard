@@ -1,0 +1,26 @@
+version: 2
+
+models:
+- name: base_main__vdo
+  description: ""
+  tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - DISTRIBUTION_ZONE
+          - EFFECTIVE_FROM
+          - EFFECTIVE_TO
+  columns:
+  - name: distribution_zone
+    description: ""
+  - name: supply_charge_cents_e4
+    description: ""
+  - name: usage_charge_structure
+    description: ""
+  - name: usage_charge_kwh_e4
+    description: ""
+  - name: controlled_load_kwh_e4
+    description: ""
+  - name: effective_from
+    description: ""
+  - name: effective_to
+    description: ""

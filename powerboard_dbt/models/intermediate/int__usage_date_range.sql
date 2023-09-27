@@ -1,11 +1,11 @@
-{{config(enabled=False)}}
+{{config(enabled=True)}}
 
 with
     min_max_date as (
         select
-            min(date) as min_date,
-            max(date) as max_date
-        from {{ ref('stg_main__usage') }}
+            min(usage_date) as min_date,
+            max(usage_date) as max_date
+        from {{ ref('int__usage_adjusted') }}
                     ),
 
     final as (

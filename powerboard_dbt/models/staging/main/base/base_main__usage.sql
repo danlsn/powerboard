@@ -1,9 +1,10 @@
 with
-    source as (select * from {{ source("amber", "usage") }}),
+    source as (select * from {{ source("main", "load_amber__usage") }}),
+
     renamed as (
 
         select
-            date,
+            "date" as usage_date,
             nem_time_start,
             nem_time,
             start_time as start_time_utc,
@@ -16,21 +17,16 @@ with
             descriptor,
             spike_status,
             quality,
-            kwh,
-            per_kwh,
-            cost,
-            renewables,
-            spot_per_kwh
+            kwh::number(10,3) as kwh,
+            per_kwh::number(10,5) as per_kwh,
+            cost::number(10,4) as cost,
+            (renewables::number(7,4) / 100)::number(5,4) as renewables,
+            spot_per_kwh::number(10,5) as spot_per_kwh
 
-        from source
+        from source as s
     ),
 
-    add_cols as (
-        select *, date_part(['year', 'month', 'day', 'hour', 'minute'], nem_time_start) as date_time
-        from renamed
-    ),
-
-    final as (select * from add_cols)
+    final as (select * from renamed)
 
 select *
-from renamed
+from final

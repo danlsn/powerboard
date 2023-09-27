@@ -168,7 +168,7 @@ def save_df_csv(df, filename):
 
 
 if __name__ == "__main__":
-    for state in ["VIC1", "NSW1"]:
+    for state in ["VIC1"]:
         yearly_data = get_opennem_yearly_data(state=state)
         all_data = get_opennem_all_data(state=state)
         weekly_data = get_opennem_7d_data(state=state)

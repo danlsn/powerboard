@@ -1,6 +1,6 @@
 with source as (
 
-    select * from {{ source('vdo', 'vdo') }}
+    select * from {{ source('main','load__vdo') }}
 
 ),
 

@@ -1,0 +1,31 @@
+version: 2
+
+models:
+- name: stg_main__opennem_temperature
+  description: ""
+  tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - ID
+          - TIMESTAMP
+  columns:
+  - name: id
+    description: ""
+  - name: type
+    description: ""
+  - name: code
+    description: ""
+  - name: network
+    description: ""
+  - name: region
+    description: ""
+  - name: data_type
+    description: ""
+  - name: units
+    description: ""
+  - name: timestamp
+    description: ""
+  - name: value
+    description: ""
+  - name: interval
+    description: ""

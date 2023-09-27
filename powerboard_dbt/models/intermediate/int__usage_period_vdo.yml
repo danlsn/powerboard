@@ -1,0 +1,15 @@
+version: 2
+
+models:
+- name: int__usage_period_vdo
+  description: ""
+  columns:
+  - name: date_minute
+    description: ""
+    tests:
+      - unique
+      - not_null
+  - name: vdo_supply_charge_per_half_hour
+    description: ""
+  - name: vdo_per_kwh
+    description: ""

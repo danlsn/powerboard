@@ -1,0 +1,33 @@
+version: 2
+
+models:
+- name: int__credits_against_usage
+  description: ""
+  tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - SITE_ID
+          - EFFECTIVE_FROM
+          - EFFECTIVE_TO
+          - AMOUNT_CENTS
+  columns:
+  - name: site_id
+    description: ""
+  - name: nmi
+    description: ""
+  - name: account_number
+    description: ""
+  - name: effective_from
+    description: ""
+  - name: effective_to
+    description: ""
+  - name: type
+    description: ""
+  - name: description
+    description: ""
+  - name: amount_cents
+    description: ""
+  - name: kwh_total
+    description: ""
+  - name: amount_cents_per_kwh
+    description: ""

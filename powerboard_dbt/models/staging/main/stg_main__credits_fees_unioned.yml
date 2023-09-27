@@ -1,0 +1,28 @@
+version: 2
+
+models:
+- name: stg_main__credits_fees_unioned
+  description: ""
+  tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+          - FEE_TYPE
+          - EFFECTIVE_FROM
+          - EFFECTIVE_TO
+  columns:
+  - name: fee_type
+    description: ""
+  - name: monthly_fee
+    description: ""
+  - name: monthly_fee_cents
+    description: ""
+  - name: effective_from
+    description: ""
+  - name: effective_to
+    description: ""
+  - name: discount
+    description: ""
+  - name: discount_cents
+    description: ""
+  - name: monthly_net_fee_cents
+    description: ""

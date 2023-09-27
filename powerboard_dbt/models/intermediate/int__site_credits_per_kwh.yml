@@ -1,0 +1,21 @@
+version: 2
+
+models:
+- name: int__site_credits_per_kwh
+  description: ""
+  tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+          - NMI
+          - DATE_DAY
+  columns:
+  - name: id
+    description: ""
+  - name: nmi
+    description: ""
+  - name: account_number
+    description: ""
+  - name: date_day
+    description: ""
+  - name: credits_per_kwh
+    description: ""

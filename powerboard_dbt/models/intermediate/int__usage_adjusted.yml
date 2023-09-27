@@ -1,0 +1,99 @@
+version: 2
+
+models:
+  - name: int__usage_adjusted
+    description: ""
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: int__usage_adjusted_unique
+          combination_of_columns:
+            - NEM_TIME
+            - SITE_ID
+    columns:
+      - name: usage_date
+        description: ""
+
+      - name: nem_time_start
+        description: ""
+
+      - name: nem_time
+        description: ""
+
+      - name: start_time_utc
+        description: ""
+
+      - name: end_time_utc
+        description: ""
+
+      - name: site_id
+        description: ""
+
+      - name: channel_type
+        description: ""
+
+      - name: channel_identifier
+        description: ""
+
+      - name: type
+        description: ""
+
+      - name: duration
+        description: ""
+
+      - name: descriptor
+        description: ""
+
+      - name: spike_status
+        description: ""
+
+      - name: quality
+        description: ""
+
+      - name: kwh
+        description: ""
+
+      - name: per_kwh
+        description: ""
+
+      - name: cost
+        description: ""
+
+      - name: renewables
+        description: ""
+
+      - name: spot_per_kwh
+        description: ""
+
+      - name: site_name
+        description: ""
+
+      - name: supply_address
+        description: ""
+
+      - name: account_number
+        description: ""
+
+      - name: nmi
+        description: ""
+
+      - name: site_active_from
+        description: ""
+
+      - name: monthly_fee_cents
+        description: ""
+
+      - name: days_in_month
+        description: ""
+
+      - name: fee_per_day
+        description: ""
+
+      - name: fee_per_half_hour
+        description: ""
+
+      - name: kwh_renewables
+        description: ""
+
+      - name: kwh_non_renewables
+        description: ""
+

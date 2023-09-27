@@ -1,13 +1,13 @@
 with source as (
 
-    select * from {{ source('amber', 'credits') }}
+    select * from {{ source('main','load_amber__credits') }}
 
 ),
 
 renamed as (
 
     select
-        nmi,
+        nmi::int as nmi,
         account_number,
         effective_from,
         effective_to,
@@ -16,7 +16,6 @@ renamed as (
         type,
         description,
         amount_cents
-
     from source
 
 )
