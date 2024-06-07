@@ -26,7 +26,7 @@ def export_monthly_usage():
     with PowerBoard(os.getenv("AMBER_API_TOKEN")) as pb:
         sites = pb.sites
         start_date = min([site["activeFrom"] for site in sites.values()])
-        start_date = "2023-09-01"
+        start_date = "2024-01-01"
         month_periods = get_monthly_dates_between(start_date)
         for start_date, end_date in month_periods:
             logger.info(f"Getting usage for {start_date} to {end_date}")
@@ -62,4 +62,4 @@ def export_daily_usage(strategy="incremental"):
 
 
 if __name__ == "__main__":
-    export_daily_usage(strategy="incremental")
+    export_daily_usage(strategy=None)

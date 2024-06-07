@@ -8,7 +8,7 @@ from pathlib import Path
 from tqdm import tqdm
 import pandas as pd
 import pendulum
-from requests import Session
+from requests_cache.session import CachedSession
 import requests_cache
 from dotenv import load_dotenv
 
@@ -26,7 +26,7 @@ ch.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(fu
 logger.addHandler(ch)
 
 
-class PowerBoard(Session):
+class PowerBoard(CachedSession):
     def __init__(self, api_token, **kwargs):
         super().__init__()
         self.base_url = "https://api.amber.com.au/v1"
@@ -65,7 +65,7 @@ class PowerBoard(Session):
     def get_site_usage(self, site_id, start_date=None, end_date=date.today()):
         logger.info(f"Getting usage for {site_id}, between {start_date} and {end_date}")
         active_dates = self.site_active_dates(site_id, start_date, end_date)
-        date_chunks = [active_dates[i:i + 7] for i in range(0, len(active_dates), 7)]
+        date_chunks = [active_dates[i:i + 28 * 3] for i in range(0, len(active_dates), 28 * 3)]
         pbar = tqdm(date_chunks)
         for chunk in pbar:
             pbar.set_description(f"Getting usage from {chunk[0]} to {chunk[-1]}")
@@ -83,6 +83,8 @@ class PowerBoard(Session):
         sites = self.sites.keys() if site_id is None else [site_id]
         for site in sites:
             active_dates = self.site_active_dates(site)
+            if start_date is None:
+                start_date = active_dates[0]
             usage.extend(self.get_site_usage(site, start_date=start_date, end_date=end_date))
         df = pd.json_normalize(usage)
         return prepare_usage_df(df)
@@ -98,8 +100,8 @@ class PowerBoard(Session):
 def main():
     with PowerBoard(os.getenv("AMBER_API_TOKEN")) as pb:
         sites = pb.sites
-        start_date = '2023-09-01'
-        end_date = date.today()
+        start_date = '2022-01-19' # '2023-09-01'
+        end_date = '2024-03-11'
         df = pb.get_usage_df(start_date=start_date, end_date=end_date)
         filename = Path(f"../data/amber-extract/full/usage_{start_date}_{end_date}.csv")
         filename.parent.mkdir(parents=True, exist_ok=True)
